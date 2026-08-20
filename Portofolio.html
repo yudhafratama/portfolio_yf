@@ -1,0 +1,2999 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Membuat website menyesuaikan ukuran layar HP, tablet, dan desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Yudha Fratama | Web Developer & Sistem Informasi</title>
+    <meta name="description"
+        content="Portfolio Yudha Fratama - Web Developer dengan keahlian PHP, Laravel, CodeIgniter, MySQL dan Sistem Informasi.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/foto-profile.jpg" type="image/jpeg">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome untuk icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- AOS untuk animasi ketika halaman di-scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+    <style>
+        /* =========================================================
+           GLOBAL VARIABLE
+           Semua warna utama website disimpan di sini agar mudah
+           diubah tanpa harus mencari warna satu per satu.
+        ========================================================= */
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+
+            --background: #f8fafc;
+            --background-soft: #eef2ff;
+
+            --card: #ffffff;
+
+            --text: #0f172a;
+            --text-soft: #475569;
+            --text-light: #64748b;
+
+            --border: #e2e8f0;
+
+            --white: #ffffff;
+
+            --success: #22c55e;
+            --danger: #ef4444;
+
+            --shadow-sm: 0 5px 20px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 15px 40px rgba(15, 23, 42, 0.10);
+            --shadow-lg: 0 25px 60px rgba(15, 23, 42, 0.15);
+
+            --radius-sm: 10px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+
+            --transition: all 0.3s ease;
+        }
+
+
+        /* =========================================================
+           DARK MODE VARIABLE
+        ========================================================= */
+
+        body.dark-mode {
+            --background: #020617;
+            --background-soft: #0f172a;
+
+            --card: #0f172a;
+
+            --text: #f8fafc;
+            --text-soft: #cbd5e1;
+            --text-light: #94a3b8;
+
+            --border: #1e293b;
+
+            --shadow-sm: 0 5px 20px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 15px 40px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 25px 60px rgba(0, 0, 0, 0.40);
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           CONTAINER
+        ========================================================= */
+
+        .container {
+            width: min(1150px, 92%);
+            margin: auto;
+        }
+
+
+        /* =========================================================
+           HEADER / NAVBAR
+        ========================================================= */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.75);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+
+            transition: var(--transition);
+        }
+
+        body.dark-mode .header {
+            background: rgba(2, 6, 23, 0.80);
+            border-bottom-color: rgba(30, 41, 59, 0.8);
+        }
+
+        .navbar {
+            height: 75px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: "Poppins", sans-serif;
+
+            font-size: 1.5rem;
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            color: var(--text);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+
+            gap: 30px;
+
+            list-style: none;
+        }
+
+        .nav-link {
+            position: relative;
+
+            color: var(--text-soft);
+
+            font-size: 0.9rem;
+            font-weight: 600;
+
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -7px;
+
+            width: 0;
+            height: 2px;
+
+            background: var(--primary);
+
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+
+        /* Tombol dark mode */
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            border: 1px solid var(--border);
+
+            background: var(--card);
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: var(--transition);
+        }
+
+        .theme-btn:hover {
+            color: var(--primary);
+
+            transform: rotate(20deg);
+        }
+
+
+        /* Mobile menu button */
+        .menu-btn {
+            display: none;
+
+            width: 40px;
+            height: 40px;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--text);
+
+            font-size: 1.3rem;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+
+            padding-top: 100px;
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(circle at 10% 20%,
+                    rgba(99, 102, 241, 0.15),
+                    transparent 30%),
+
+                radial-gradient(circle at 90% 80%,
+                    rgba(139, 92, 246, 0.15),
+                    transparent 30%),
+
+                var(--background);
+        }
+
+        /* Lingkaran dekorasi */
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(99, 102, 241, 0.08);
+
+            top: 10%;
+            right: -100px;
+
+            filter: blur(5px);
+        }
+
+        .hero-content {
+            display: grid;
+
+            grid-template-columns: 1.2fr 0.8fr;
+
+            align-items: center;
+
+            gap: 70px;
+        }
+
+
+        /* Badge kecil */
+        .hero-badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 14px;
+
+            margin-bottom: 20px;
+
+            border-radius: 50px;
+
+            background: var(--background-soft);
+
+            color: var(--primary);
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+        }
+
+        .hero-badge span {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+
+            box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.12);
+        }
+
+
+        .hero h1 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+
+            line-height: 1.1;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background:
+                linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary),
+                    var(--accent));
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            color: var(--text-soft);
+
+            font-size: 1.05rem;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* Tombol hero */
+        .hero-buttons {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 13px 22px;
+
+            border-radius: 12px;
+
+            font-size: 0.9rem;
+
+            font-weight: 700;
+
+            border: none;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            color: white;
+
+            background:
+                linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary));
+
+            box-shadow:
+                0 10px 25px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 35px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-outline {
+            background: var(--card);
+
+            color: var(--text);
+
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+
+            color: var(--primary);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================================================
+           FOTO PROFILE HERO
+        ========================================================= */
+
+        .hero-photo-wrapper {
+            position: relative;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        .hero-photo-bg {
+            position: absolute;
+
+            width: 340px;
+            height: 340px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary),
+                    var(--accent));
+
+            filter: blur(2px);
+
+            opacity: 0.9;
+        }
+
+        .hero-photo {
+            position: relative;
+
+            width: 300px;
+            height: 300px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 8px solid var(--card);
+
+            box-shadow: var(--shadow-lg);
+        }
+
+
+        /* Floating cards */
+        .floating-card {
+            position: absolute;
+
+            padding: 12px 16px;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.85);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow: var(--shadow-md);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+
+            color: #0f172a;
+        }
+
+        body.dark-mode .floating-card {
+            background: rgba(15, 23, 42, 0.85);
+            color: #f8fafc;
+        }
+
+        .floating-card i {
+            color: var(--primary);
+        }
+
+        .floating-one {
+            left: 0;
+            top: 20%;
+        }
+
+        .floating-two {
+            right: 0;
+            bottom: 20%;
+        }
+
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        .section {
+            padding: 110px 0;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-label {
+            display: inline-block;
+
+            color: var(--primary);
+
+            font-size: 0.8rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(2rem, 4vw, 3rem);
+
+            line-height: 1.2;
+
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            max-width: 700px;
+
+            color: var(--text-soft);
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-grid {
+            display: grid;
+
+            grid-template-columns: 0.8fr 1.2fr;
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+
+            max-width: 420px;
+
+            margin: auto;
+
+            border-radius: var(--radius-lg);
+
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image::after {
+            content: "";
+
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            border: 0px solid var(--primary);
+
+            border-radius: 20px;
+
+            left: -20px;
+            bottom: -20px;
+
+            z-index: -1;
+        }
+
+        .about-text p {
+            color: var(--text-soft);
+
+            margin-bottom: 20px;
+        }
+
+
+        /* Informasi pribadi */
+        .about-info {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 25px;
+        }
+
+        .info-item {
+            padding: 15px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: var(--card);
+        }
+
+        .info-item small {
+            display: block;
+
+            color: var(--text-light);
+
+            font-size: 0.75rem;
+
+            margin-bottom: 3px;
+        }
+
+        .info-item strong {
+            font-size: 0.9rem;
+        }
+
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 30px;
+
+            margin-top: 40px;
+        }
+
+        .skill-card {
+            padding: 25px;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+        }
+
+        .skill-name {
+            font-weight: 700;
+        }
+
+        .skill-percent {
+            color: var(--primary);
+
+            font-weight: 700;
+        }
+
+        .skill-track {
+            width: 100%;
+
+            height: 9px;
+
+            background: var(--border);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(90deg,
+                    var(--primary),
+                    var(--secondary));
+        }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .projects-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .project-card {
+            overflow: hidden;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+
+            transition: var(--transition);
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+
+            box-shadow: var(--shadow-md);
+        }
+
+
+        /* Gambar proyek */
+        .project-image {
+            position: relative;
+
+            height: 220px;
+
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.08);
+        }
+
+
+        /* Overlay gambar */
+        .project-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(15, 23, 42, 0.5);
+
+            opacity: 0;
+
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay i {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: var(--primary);
+
+            font-size: 1.1rem;
+        }
+
+
+        .project-content {
+            padding: 25px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            flex: 1;
+        }
+
+        .project-content h3 {
+            font-family: "Poppins", sans-serif;
+
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--text-soft);
+
+            font-size: 0.9rem;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* Teknologi proyek */
+        .project-tags {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 5px 10px;
+
+            border-radius: 7px;
+
+            background: var(--background-soft);
+
+            color: var(--primary);
+
+            font-size: 0.7rem;
+
+            font-weight: 700;
+        }
+
+
+        /* Tombol proyek selalu berada di bawah */
+        .project-button {
+            margin-top: auto;
+        }
+
+        .project-button .btn {
+            width: 100%;
+        }
+
+
+        /* =========================================================
+           EXPERIENCE / EDUCATION
+        ========================================================= */
+
+        .timeline {
+            position: relative;
+
+            max-width: 850px;
+
+            margin: auto;
+        }
+
+        .timeline::before {
+            content: "";
+
+            position: absolute;
+
+            left: 15px;
+            top: 0;
+            bottom: 0;
+
+            width: 2px;
+
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+
+            padding-left: 55px;
+
+            margin-bottom: 35px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+
+            left: 7px;
+            top: 5px;
+
+            width: 18px;
+            height: 18px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            border: 4px solid var(--background);
+        }
+
+        .timeline-card {
+            padding: 25px;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+        .timeline-card h3 {
+            margin-bottom: 5px;
+        }
+
+        .timeline-card p {
+            color: var(--text-soft);
+
+            font-size: 0.9rem;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact-wrapper {
+            display: grid;
+
+            grid-template-columns: 0.8fr 1.2fr;
+
+            gap: 30px;
+        }
+
+        .contact-info {
+            padding: 35px;
+
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary));
+
+            color: white;
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-info h3 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: 1.7rem;
+
+            margin-bottom: 15px;
+        }
+
+        .contact-info>p {
+            opacity: 0.9;
+
+            font-size: 0.9rem;
+
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-item small {
+            display: block;
+
+            opacity: 0.75;
+
+            font-size: 0.7rem;
+        }
+
+        .contact-item span {
+            font-size: 0.85rem;
+
+            font-weight: 600;
+        }
+
+
+        /* Social media */
+        .social-links {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: white;
+
+            color: var(--primary);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* Form */
+        .contact-form {
+            padding: 35px;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-lg);
+
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+        }
+
+        .form-control {
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background: var(--background);
+
+            color: var(--text);
+
+            font-size: 0.9rem;
+
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+        textarea.form-control {
+            min-height: 140px;
+
+            resize: vertical;
+        }
+
+        .form-message {
+            margin-top: 15px;
+
+            font-size: 0.85rem;
+
+            display: none;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            padding: 30px 0;
+
+            background: #020617;
+
+            color: #94a3b8;
+
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+        }
+
+
+        /* =========================================================
+           BACK TO TOP
+        ========================================================= */
+
+        .back-top {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            width: 45px;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: var(--primary);
+
+            color: white;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: translateY(20px);
+
+            transition: var(--transition);
+
+            z-index: 1000;
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-top.show {
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE TABLET
+        ========================================================= */
+
+        @media (max-width: 950px) {
+
+            .hero-content {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-photo-wrapper {
+                order: -1;
+            }
+
+            .hero-photo {
+                width: 250px;
+                height: 250px;
+            }
+
+            .hero-photo-bg {
+                width: 290px;
+                height: 290px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image img {
+                max-width: 350px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE MOBILE
+        ========================================================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: 68px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+
+                top: 68px;
+                left: 0;
+
+                width: 100%;
+
+                padding: 20px;
+
+                flex-direction: column;
+
+                background: var(--card);
+
+                border-bottom: 1px solid var(--border);
+
+                box-shadow: var(--shadow-md);
+
+                transform: translateY(-150%);
+
+                opacity: 0;
+
+                pointer-events: none;
+
+                transition: var(--transition);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+
+                opacity: 1;
+
+                pointer-events: auto;
+            }
+
+            .theme-btn {
+                position: absolute;
+
+                right: 65px;
+
+                top: 14px;
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-info {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <!-- Logo -->
+            <a href="#home" class="logo">
+                Yudha<span>.</span>
+            </a>
+
+
+            <!-- Navigation -->
+            <ul class="nav-menu" id="navMenu">
+
+                <li>
+                    <a href="#home" class="nav-link">Beranda</a>
+                </li>
+
+                <li>
+                    <a href="#about" class="nav-link">Tentang</a>
+                </li>
+
+                <li>
+                    <a href="#skills" class="nav-link">Keahlian</a>
+                </li>
+
+                <li>
+                    <a href="#projects" class="nav-link">Proyek</a>
+                </li>
+
+                <li>
+                    <a href="#experience" class="nav-link">Pendidikan</a>
+                </li>
+
+                <li>
+                    <a href="#contact" class="nav-link">Kontak</a>
+                </li>
+
+            </ul>
+
+
+            <!-- Tombol dark mode -->
+            <button class="theme-btn" id="themeBtn" aria-label="Ganti tema">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+
+            <!-- Tombol menu mobile -->
+            <button class="menu-btn" id="menuBtn" aria-label="Buka menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <section class="hero" id="home">
+
+        <div class="container hero-content">
+
+
+            <!-- Teks hero -->
+            <div data-aos="fade-right">
+
+                <div class="hero-badge">
+                    <span></span>
+                    Available for opportunities
+                </div>
+
+
+                <h1>
+                    Halo, saya
+                    <span>Yudha Fratama.</span>
+                </h1>
+
+
+                <p class="hero-description">
+                    Saya seorang lulusan Sistem Informasi yang memiliki
+                    ketertarikan pada pengembangan website, sistem informasi,
+                    dan solusi digital yang bermanfaat bagi pengguna.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fa-solid fa-code"></i>
+                        Lihat Proyek
+                    </a>
+
+
+                    <a href="assets/cv-yudha.pdf" class="btn btn-outline" download>
+                        <i class="fa-solid fa-download"></i>
+                        Download CV
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Foto profil -->
+            <div class="hero-photo-wrapper" data-aos="fade-left">
+
+                <div class="hero-photo-bg"></div>
+
+
+                <!--
+                    GANTI FOTO INI DENGAN FOTO KAMU.
+
+                    File:
+                    assets/foto-profile.jpg
+                -->
+
+                <img src="assets/foto-profile.jpg" alt="Foto Profil Yudha Fratama" class="hero-photo">
+
+
+                <!-- Floating card -->
+                <div class="floating-card floating-one">
+
+                    <i class="fa-solid fa-code"></i>
+
+                    <span>Web Developer</span>
+
+                </div>
+
+
+                <div class="floating-card floating-two">
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <span>PHP & MySQL</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         ABOUT
+    ========================================================= -->
+
+    <section class="section" id="about">
+
+        <div class="container">
+
+            <div class="section-header" data-aos="fade-up">
+
+                <span class="section-label">
+                    Tentang Saya
+                </span>
+
+                <h2 class="section-title">
+                    Mengenal Saya Lebih Dekat
+                </h2>
+
+                <p class="section-description">
+                    Sedikit tentang latar belakang, minat dan fokus saya
+                    dalam dunia teknologi.
+                </p>
+
+            </div>
+
+
+            <div class="about-grid">
+
+
+                <!-- Foto kedua -->
+                <div class="about-image" data-aos="fade-right">
+
+                    <!--
+                        Kamu bisa menggunakan foto berbeda dari foto hero.
+
+                        File:
+                        assets/foto-profile.jpg
+                    -->
+
+                    <img src="assets/profil_1.jpeg" alt="Yudha Fratama">
+
+                </div>
+
+
+                <!-- Deskripsi -->
+                <div class="about-text" data-aos="fade-left">
+
+                    <p>
+                        Saya adalah lulusan S1 Sistem Informasi yang memiliki
+                        ketertarikan pada pengembangan aplikasi berbasis web.
+                        Saya menikmati proses membangun sebuah sistem mulai
+                        dari perancangan database, pembuatan backend,
+                        pengembangan antarmuka hingga pengujian sistem.
+                    </p>
+
+                    <p>
+                        Beberapa teknologi yang pernah saya gunakan antara lain
+                        PHP, MySQL, CodeIgniter, Laravel, HTML, CSS dan
+                        JavaScript. Saya juga tertarik pada pengembangan
+                        sistem informasi yang dapat membantu proses administrasi
+                        menjadi lebih mudah dan efisien.
+                    </p>
+
+
+                    <!-- Informasi singkat -->
+                    <div class="about-info">
+
+                        <div class="info-item">
+                            <small>Nama</small>
+                            <strong>Yudha Fratama</strong>
+                        </div>
+
+                        <div class="info-item">
+                            <small>Pendidikan</small>
+                            <strong>S1 Sistem Informasi</strong>
+                        </div>
+
+                        <div class="info-item">
+                            <small>Fokus</small>
+                            <strong>Web Development</strong>
+                        </div>
+
+                        <div class="info-item">
+                            <small>Database</small>
+                            <strong>MySQL</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SKILLS
+    ========================================================= -->
+
+    <section class="section" id="skills" style="background: var(--background-soft);">
+
+        <div class="container">
+
+            <div class="section-header" data-aos="fade-up">
+
+                <span class="section-label">
+                    Keahlian
+                </span>
+
+                <h2 class="section-title">
+                    Teknologi yang Saya Gunakan
+                </h2>
+
+                <p class="section-description">
+                    Beberapa teknologi dan tools yang saya pelajari
+                    dan gunakan dalam pengembangan sistem.
+                </p>
+
+            </div>
+
+
+            <div class="skills-grid">
+
+
+                <!-- PHP -->
+                <div class="skill-card" data-aos="fade-up">
+
+                    <div class="skill-top">
+
+                        <span class="skill-name">
+                            PHP
+                        </span>
+
+                        <span class="skill-percent">
+                            90%
+                        </span>
+
+                    </div>
+
+                    <div class="skill-track">
+
+                        <div class="skill-fill" style="width: 90%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CodeIgniter -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+
+                    <div class="skill-top">
+
+                        <span class="skill-name">
+                            CodeIgniter
+                        </span>
+
+                        <span class="skill-percent">
+                            88%
+                        </span>
+
+                    </div>
+
+                    <div class="skill-track">
+
+                        <div class="skill-fill" style="width: 88%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Laravel -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
+
+                    <div class="skill-top">
+
+                        <span class="skill-name">
+                            Laravel
+                        </span>
+
+                        <span class="skill-percent">
+                            80%
+                        </span>
+
+                    </div>
+
+                    <div class="skill-track">
+
+                        <div class="skill-fill" style="width: 80%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MySQL -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+
+                    <div class="skill-top">
+
+                        <span class="skill-name">
+                            MySQL
+                        </span>
+
+                        <span class="skill-percent">
+                            85%
+                        </span>
+
+                    </div>
+
+                    <div class="skill-track">
+
+                        <div class="skill-fill" style="width: 85%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HTML CSS -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="250">
+
+                    <div class="skill-top">
+
+                        <span class="skill-name">
+                            HTML & CSS
+                        </span>
+
+                        <span class="skill-percent">
+                            90%
+                        </span>
+
+                    </div>
+
+                    <div class="skill-track">
+
+                        <div class="skill-fill" style="width: 90%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- JavaScript -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+
+                    <div class="skill-top">
+
+                        <span class="skill-name">
+                            JavaScript
+                        </span>
+
+                        <span class="skill-percent">
+                            70%
+                        </span>
+
+                    </div>
+
+                    <div class="skill-track">
+
+                        <div class="skill-fill" style="width: 70%;"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PROJECTS
+    ========================================================= -->
+
+    <section class="section" id="projects">
+
+        <div class="container">
+
+            <div class="section-header" data-aos="fade-up">
+
+                <span class="section-label">
+                    Portfolio
+                </span>
+
+                <h2 class="section-title">
+                    Proyek yang Pernah Saya Kerjakan
+                </h2>
+
+                <p class="section-description">
+                    Beberapa proyek sistem informasi dan aplikasi web
+                    yang dapat ditampilkan di portfolio.
+                </p>
+
+            </div>
+
+            <div class="projects-grid">
+
+
+                <!-- =================================================
+         PROJECT 1
+         Sistem Informasi Layanan Publik Desa
+    ================================================== -->
+
+                <div class="project-card" data-aos="fade-up">
+
+                    <div class="project-image">
+
+                        <!--
+                Screenshot proyek Sistem Informasi
+                Layanan Publik Desa.
+            -->
+
+                        <img src="assets/project-desa.png" alt="Sistem Informasi Layanan Publik Desa">
+
+                        <div class="project-overlay">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <h3>
+                            Sistem Informasi Layanan Publik Desa
+                        </h3>
+
+                        <p>
+                            Sistem informasi berbasis web yang dirancang untuk
+                            mempermudah masyarakat dalam mengajukan berbagai
+                            layanan administrasi desa secara online serta
+                            membantu operator mengelola dan memantau setiap
+                            pengajuan dengan lebih cepat dan terstruktur.
+                        </p>
+
+
+                        <div class="project-tags">
+
+                            <span class="tag">
+                                PHP
+                            </span>
+
+                            <span class="tag">
+                                CodeIgniter 4
+                            </span>
+
+                            <span class="tag">
+                                MySQL
+                            </span>
+
+                        </div>
+
+
+                        <div class="project-button">
+
+                            <a href="#" class="btn btn-primary">
+
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                Lihat Detail
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+         PROJECT 2
+         Sistem Informasi Akuntansi
+    ================================================== -->
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+
+                    <div class="project-image">
+
+                        <!--
+                Screenshot proyek Sistem Informasi Akuntansi.
+            -->
+
+                        <img src="assets/project-akuntansi.png" alt="Sistem Informasi Akuntansi">
+
+                        <div class="project-overlay">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <h3>
+                            Sistem Informasi Akuntansi
+                        </h3>
+
+                        <p>
+                            Sistem informasi berbasis web yang digunakan untuk
+                            membantu proses pencatatan dan pengelolaan transaksi
+                            keuangan secara terkomputerisasi, sehingga data
+                            dapat tersimpan dengan lebih rapi dan memudahkan
+                            proses penyusunan serta pemantauan laporan keuangan.
+                        </p>
+
+
+                        <div class="project-tags">
+
+                            <span class="tag">
+                                PHP
+                            </span>
+
+                            <span class="tag">
+                                MySQL
+                            </span>
+
+                            <span class="tag">
+                                MVC
+                            </span>
+
+                        </div>
+
+
+                        <div class="project-button">
+
+                            <a href="#" class="btn btn-primary">
+
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                Lihat Detail
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+         PROJECT 3
+         Sistem Pengajuan Cuti Karyawan
+    ================================================== -->
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+
+                    <div class="project-image">
+
+                        <!--
+                Screenshot proyek Sistem Pengajuan Cuti Karyawan.
+            -->
+
+                        <img src="assets/project-ACP.png" alt="Sistem Pengajuan Cuti Karyawan">
+
+                        <div class="project-overlay">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <h3>
+                            Sistem Pengajuan Cuti Karyawan
+                        </h3>
+
+                        <p>
+                            Sistem berbasis web yang dirancang untuk mempermudah
+                            karyawan dalam mengajukan cuti secara online serta
+                            membantu admin atau pihak terkait dalam memeriksa,
+                            memproses, dan mengelola data pengajuan cuti secara
+                            lebih efektif dan terorganisir.
+                        </p>
+
+
+                        <div class="project-tags">
+
+                            <span class="tag">
+                                PHP
+                            </span>
+
+                            <span class="tag">
+                                CodeIgniter
+                            </span>
+
+                            <span class="tag">
+                                MySQL
+                            </span>
+
+                            <span class="tag">
+                                MVC
+                            </span>
+
+                        </div>
+
+
+                        <div class="project-button">
+
+                            <a href="#" class="btn btn-primary">
+
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                Lihat Detail
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PENDIDIKAN / EXPERIENCE
+    ========================================================= -->
+
+    <section class="section" id="experience" style="background: var(--background-soft);">
+
+        <div class="container">
+
+            <div class="section-header" data-aos="fade-up">
+
+                <span class="section-label">
+                    Pendidikan
+                </span>
+
+                <h2 class="section-title">
+                    Perjalanan Pendidikan
+                </h2>
+
+            </div>
+
+
+            <div class="timeline">
+
+                <div class="timeline-item" data-aos="fade-up">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-card">
+
+                        <div class="timeline-date">
+                            2021 - 2022
+                        </div>
+
+                        <h3>
+                            Junior Design Grafis
+                        </h3>
+
+                        <p>
+                            Mempelajari Microsoft Word, Microsoft Excel
+                            dan Adobe Photoshop.
+                        </p>
+
+                    </div>
+
+                </div>
+                <div class="timeline-item" data-aos="fade-up">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-card">
+
+                        <div class="timeline-date">
+                            2021 - 2025
+                        </div>
+
+                        <h3>
+                            S1 Sistem Informasi
+                        </h3>
+
+                        <p>
+                            Universitas Prabumulih.
+                            Fokus pada sistem informasi,
+                            pengembangan perangkat lunak,
+                            database dan pengembangan aplikasi berbasis web.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item" data-aos="fade-up">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-card">
+
+                        <div class="timeline-date">
+                            2024 - 2026
+                        </div>
+
+                        <h3>
+                            Junior Web Development
+                        </h3>
+
+                        <p>
+                            Mempelajari pengembangan website menggunakan
+                            PHP, MySQL, Laravel dan CodeIgniter.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         CONTACT
+    ========================================================= -->
+
+    <section class="section" id="contact">
+
+        <div class="container">
+
+            <div class="section-header" data-aos="fade-up">
+
+                <span class="section-label">
+                    Kontak
+                </span>
+
+                <h2 class="section-title">
+                    Mari Terhubung
+                </h2>
+
+                <p class="section-description">
+                    Jika kamu ingin berdiskusi mengenai pekerjaan,
+                    project atau peluang kerja sama, silakan hubungi saya.
+                </p>
+
+            </div>
+
+
+            <div class="contact-wrapper">
+
+
+                <!-- Informasi kontak -->
+                <div class="contact-info" data-aos="fade-right">
+
+                    <h3>
+                        Punya project?
+                    </h3>
+
+                    <p>
+                        Jangan ragu untuk menghubungi saya.
+                        Saya terbuka untuk berdiskusi mengenai
+                        pengembangan website dan sistem informasi.
+                    </p>
+
+
+                    <!-- Email -->
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+
+                        <div>
+                            <small>Email</small>
+
+                            <!-- GANTI dengan email kamu -->
+                            <span>
+                                Yudhafratama50@gmail.com
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- WhatsApp -->
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+
+                        <div>
+                            <small>WhatsApp</small>
+
+                            <!-- GANTI dengan nomor WhatsApp kamu -->
+                            <span>
+                                +62 813 7985 6164
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Lokasi -->
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+                            <small>Lokasi</small>
+
+                            <span>
+                                Sumatera Selatan, Indonesia
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Social media -->
+                    <div class="social-links">
+
+                        <!-- GANTI LINK GITHUB -->
+                        <a href="https://github.com/yudhafratama" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+
+
+                        <!-- GANTI LINK LINKEDIN -->
+                        <a href="https://linkedin.com/in/yudha-fratama-9669a3388" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+
+
+                        <!-- GANTI LINK INSTAGRAM -->
+                        <a href="https://www.instagram.com/yudha.fra_/" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Form kontak -->
+                <form class="contact-form" id="contactForm" data-aos="fade-left">
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Nama
+                        </label>
+
+                        <input type="text" id="name" class="form-control" placeholder="Masukkan nama kamu" minlength="3"
+                            maxlength="50" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input type="email" id="email" class="form-control" placeholder="nama@email.com" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="subject">
+                            Subjek
+                        </label>
+
+                        <input type="text" id="subject" class="form-control" placeholder="Contoh: Tawaran Project"
+                            maxlength="100" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            Pesan
+                        </label>
+
+                        <textarea id="message" class="form-control" placeholder="Tuliskan pesan kamu..." minlength="10"
+                            maxlength="500" required></textarea>
+
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        <span id="submitText">
+                            Kirim Pesan
+                        </span>
+
+                    </button>
+
+
+                    <!-- Pesan status form -->
+                    <div class="form-message" id="formMessage"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="year"></span>
+                Yudha Fratama.
+                All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- Tombol kembali ke atas -->
+    <button class="back-top" id="backTop" aria-label="Kembali ke atas">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+
+    <script>
+        /* =========================================================
+           INISIALISASI AOS
+
+           AOS membuat elemen muncul dengan animasi ketika
+           pengunjung melakukan scroll.
+        ========================================================= */
+
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 80
+        });
+
+
+
+        /* =========================================================
+           DARK MODE
+        ========================================================= */
+
+        const themeBtn = document.getElementById("themeBtn");
+
+        /*
+         * Mengambil mode yang sebelumnya disimpan.
+         * Jika user sebelumnya menggunakan dark mode,
+         * maka ketika website dibuka kembali dark mode tetap aktif.
+         */
+
+        const savedTheme = localStorage.getItem("portfolio-theme");
+
+        if (savedTheme === "dark") {
+
+            document.body.classList.add("dark-mode");
+
+            themeBtn.innerHTML =
+                '<i class="fa-solid fa-sun"></i>';
+
+        }
+
+
+        themeBtn.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark-mode");
+
+            const isDark =
+                document.body.classList.contains("dark-mode");
+
+
+            /*
+             * Mengubah icon sesuai tema.
+             */
+
+            themeBtn.innerHTML = isDark ?
+                '<i class="fa-solid fa-sun"></i>' :
+                '<i class="fa-solid fa-moon"></i>';
+
+
+            /*
+             * Menyimpan pilihan user ke browser.
+             */
+
+            localStorage.setItem(
+                "portfolio-theme",
+                isDark ? "dark" : "light"
+            );
+
+        });
+
+
+
+        /* =========================================================
+           MOBILE NAVIGATION
+        ========================================================= */
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+        const navMenu =
+            document.getElementById("navMenu");
+
+
+        menuBtn.addEventListener("click", function () {
+
+            navMenu.classList.toggle("active");
+
+
+            const isOpen =
+                navMenu.classList.contains("active");
+
+
+            menuBtn.innerHTML = isOpen ?
+                '<i class="fa-solid fa-xmark"></i>' :
+                '<i class="fa-solid fa-bars"></i>';
+
+        });
+
+
+        /*
+         * Ketika salah satu menu diklik,
+         * menu mobile otomatis ditutup.
+         */
+
+        document.querySelectorAll(".nav-link").forEach(link => {
+
+            link.addEventListener("click", function () {
+
+                navMenu.classList.remove("active");
+
+                menuBtn.innerHTML =
+                    '<i class="fa-solid fa-bars"></i>';
+
+            });
+
+        });
+
+
+
+        /* =========================================================
+           BACK TO TOP
+        ========================================================= */
+
+        const backTop =
+            document.getElementById("backTop");
+
+
+        window.addEventListener("scroll", function () {
+
+            /*
+             * Tombol muncul setelah halaman
+             * digulir lebih dari 400px.
+             */
+
+            if (window.scrollY > 400) {
+
+                backTop.classList.add("show");
+
+            } else {
+
+                backTop.classList.remove("show");
+
+            }
+
+        });
+
+
+        backTop.addEventListener("click", function () {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+
+
+        /* =========================================================
+           FORM CONTACT
+
+           Saat ini form belum terhubung ke database/email.
+           JavaScript hanya melakukan validasi dan memberikan
+           feedback kepada pengguna.
+
+           Untuk pengiriman email sungguhan bisa diintegrasikan
+           menggunakan EmailJS atau backend PHP.
+        ========================================================= */
+
+        const contactForm =
+            document.getElementById("contactForm");
+
+        const formMessage =
+            document.getElementById("formMessage");
+
+        const submitBtn =
+            document.getElementById("submitBtn");
+
+        const submitText =
+            document.getElementById("submitText");
+
+
+        contactForm.addEventListener("submit", function (event) {
+
+            /*
+             * Mencegah halaman reload.
+             */
+
+            event.preventDefault();
+
+
+            const name =
+                document.getElementById("name").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const subject =
+                document.getElementById("subject").value.trim();
+
+            const message =
+                document.getElementById("message").value.trim();
+
+
+            /*
+             * Validasi nama.
+             */
+
+            if (name.length < 3) {
+
+                showFormMessage(
+                    "Nama minimal 3 karakter.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Validasi email sederhana.
+             */
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (!emailPattern.test(email)) {
+
+                showFormMessage(
+                    "Format email tidak valid.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Validasi pesan.
+             */
+
+            if (message.length < 10) {
+
+                showFormMessage(
+                    "Pesan minimal 10 karakter.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Simulasi proses pengiriman.
+             */
+
+            submitBtn.disabled = true;
+
+            submitText.textContent =
+                "Mengirim...";
+
+
+            setTimeout(function () {
+
+                showFormMessage(
+                    `Terima kasih, ${name}! Pesan kamu berhasil diproses.`,
+                    "success"
+                );
+
+
+                contactForm.reset();
+
+
+                submitBtn.disabled = false;
+
+                submitText.textContent =
+                    "Kirim Pesan";
+
+            }, 1200);
+
+        });
+
+
+
+        /*
+         * Fungsi untuk menampilkan pesan
+         * sukses atau error pada form.
+         */
+
+        function showFormMessage(text, type) {
+
+            formMessage.style.display = "block";
+
+            formMessage.textContent = text;
+
+
+            if (type === "success") {
+
+                formMessage.style.color =
+                    "var(--success)";
+
+            } else {
+
+                formMessage.style.color =
+                    "var(--danger)";
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           TAHUN FOOTER OTOMATIS
+        ========================================================= */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const contactForm = document.getElementById("contactForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitText = document.getElementById("submitText");
+    const formMessage = document.getElementById("formMessage");
+
+    // ==========================================
+    // NOMOR WHATSAPP TUJUAN
+    // ==========================================
+    const whatsappNumber = "6281379856164";
+
+
+    contactForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+
+        // ==========================================
+        // AMBIL DATA FORM
+        // ==========================================
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const subject = document.getElementById("subject").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+
+        // ==========================================
+        // VALIDASI
+        // ==========================================
+
+        if (name.length < 3) {
+
+            showMessage(
+                "Nama minimal 3 karakter.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!email.includes("@")) {
+
+            showMessage(
+                "Silakan masukkan alamat email yang valid.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (subject.length < 3) {
+
+            showMessage(
+                "Subjek minimal 3 karakter.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (message.length < 10) {
+
+            showMessage(
+                "Pesan minimal 10 karakter.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ==========================================
+        // LOADING
+        // ==========================================
+
+        submitBtn.disabled = true;
+
+        submitText.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Membuka WhatsApp...
+        `;
+
+
+        // ==========================================
+        // MEMBUAT PESAN WHATSAPP
+        // ==========================================
+
+        const whatsappMessage =
+
+`Halo, saya ${name}.
+
+Saya menghubungi melalui website portfolio.
+
+━━━━━━━━━━━━━━━━━━
+SUBJEK
+${subject}
+
+EMAIL
+${email}
+
+PESAN
+${message}
+━━━━━━━━━━━━━━━━━━
+
+Terima kasih.`;
+
+
+        // Encode pesan agar aman digunakan dalam URL
+
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+
+
+        // ==========================================
+        // URL WHATSAPP
+        // ==========================================
+
+        const whatsappURL =
+            `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+
+        // ==========================================
+        // TAMPILKAN PESAN
+        // ==========================================
+
+        showMessage(
+            "Form berhasil diproses. WhatsApp sedang dibuka...",
+            "success"
+        );
+
+
+        // ==========================================
+        // BUKA WHATSAPP
+        // ==========================================
+
+        setTimeout(function () {
+
+            window.open(
+                whatsappURL,
+                "_blank"
+            );
+
+
+            // Reset tombol
+
+            submitBtn.disabled = false;
+
+            submitText.innerHTML = `
+                Kirim Pesan
+            `;
+
+        }, 800);
+
+    });
+
+
+    // ==========================================
+    // FUNGSI PESAN STATUS
+    // ==========================================
+
+    function showMessage(message, type) {
+
+        formMessage.textContent = message;
+
+        formMessage.className =
+            `form-message ${type}`;
+
+
+        // Hilangkan pesan setelah beberapa detik
+
+        setTimeout(function () {
+
+            formMessage.textContent = "";
+
+            formMessage.className =
+                "form-message";
+
+        }, 5000);
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
